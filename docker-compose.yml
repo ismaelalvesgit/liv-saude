@@ -16,7 +16,10 @@ services:
     restart: always
     environment: 
       DB_HOST: postgres
-    # volumes: 
+    volumes: 
+      - ./backend/backup:/app/backup
+      - ./backend/logs:/app/logs
+      - ./backend/files:/app/src/public
     #   - /etc/localtime:/etc/localtime:ro # usar somente em SO linux
     #   - /etc/timezone:/etc/timezone:ro # usar somente em SO linux
     ports: 
