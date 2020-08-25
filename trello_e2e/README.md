@@ -1,4 +1,4 @@
-# FaleMais E2E
+# Trello E2E
 
 Este projeto foi gerado com [Cypress.js](https://www.cypress.io/) version 5.0.0.
 
