@@ -23,7 +23,7 @@
                             <mat-form-field class="mat-form mt-3" appearance="outline" >
                                 <input id="formCard{{i}}" matInput formControlName="nome" placeholder="Digite o nome do card">
                                 <mat-icon id="formCardButton{{i}}" matSuffix class="cursor" (click)="editCard()">save</mat-icon>
-                                <mat-error id="formCardErro{{i}}" *ngIf="formCard.get('nome').hasError('required')">
+                                <mat-error id="formCardError{{i}}" *ngIf="formCard.get('nome').hasError('required')">
                                     Obrigatório
                                 </mat-error>
                                 <mat-label>Nome do Card*</mat-label>

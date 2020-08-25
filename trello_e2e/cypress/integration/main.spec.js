@@ -47,7 +47,7 @@ describe('Fluxo normal de tratamento de erros', () => {
           cy.get("#addLista0").type(itens)
           cy.get("#addLista0").clear()
           cy.get("#addListaButton0").click()
-          cy.get(`#addListaError${index+2}`).should('contain.text', 'Obrigatório')
+          cy.get('#addListaError0').should('contain.text', 'Obrigatório')
         })
       })
     })
