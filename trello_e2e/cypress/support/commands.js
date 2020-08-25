@@ -32,3 +32,17 @@ Cypress.Commands.add('CadastroCards', (item) => {
     cy.get('.swal2-confirm').click()
     cy.get('.swal2-confirm').click()
 })
+
+Cypress.Commands.add('CadastroTarefas', (item) => {
+    cy.CadastroCards(item).then(() => {
+        item.lista.forEach((itens, index) => {
+            cy.get("#addLista0").type(itens)
+            cy.get("#addListaButton0").click()
+            // Submit Form
+            cy.get('.swal2-confirm').click()
+            cy.get('.swal2-confirm').click()
+            // Verificando valores cadastrados
+            cy.get(`#cdk-drop-list-0 > :nth-child(${index + 2}) > .justify-content-between > .lead`).should('contain.text', itens)
+        })
+    })
+})

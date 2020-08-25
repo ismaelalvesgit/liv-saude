@@ -23,7 +23,7 @@
                             <mat-form-field class="mat-form mt-3" appearance="outline" >
                                 <input id="formCard{{i}}" matInput formControlName="nome" placeholder="Digite o nome do card">
                                 <mat-icon id="formCardButton{{i}}" matSuffix class="cursor" (click)="editCard()">save</mat-icon>
-                                <mat-error *ngIf="formCard.get('nome').hasError('required')">
+                                <mat-error id="formCardErro{{i}}" *ngIf="formCard.get('nome').hasError('required')">
                                     Obrigatório
                                 </mat-error>
                                 <mat-label>Nome do Card*</mat-label>
@@ -51,8 +51,8 @@
                             <form [formGroup]="formListaEdit">
                                 <mat-form-field class="mat-form mt-3" appearance="outline" >
                                     <input id="formLista{{l}}" matInput formControlName="nome" placeholder="Digite o nome da Tarefa">
-                                    <mat-icon matSuffix class="cursor" (click)="editLista()">save</mat-icon>
-                                    <mat-error *ngIf="formListaEdit.get('nome').hasError('required')">
+                                    <mat-icon id="formListaButton{{l}}" matSuffix class="cursor" (click)="editLista()">save</mat-icon>
+                                    <mat-error id="formListaError{{l}}" *ngIf="formListaEdit.get('nome').hasError('required')">
                                         Obrigatório
                                     </mat-error>
                                     <mat-label>Nome da tarefa*</mat-label>
@@ -68,8 +68,8 @@
                     <form [formGroup]="formLista">
                         <mat-form-field class="mat-form mt-3" appearance="outline">
                             <input id="addLista{{i}}" matInput formControlName="nome" placeholder="Digite o nome da Tarefa">
-                            <mat-icon matSuffix class="cursor" (click)="addLista(card)">add_circle_outline</mat-icon>
-                            <mat-error *ngIf="formLista.get('nome').hasError('required')">
+                            <mat-icon id="addListaButton{{i}}" matSuffix class="cursor" (click)="addLista(card)">add_circle_outline</mat-icon>
+                            <mat-error id="addListaError{{i}}"*ngIf="formLista.get('nome').hasError('required')">
                                 Obrigatório
                             </mat-error>
                             <mat-label>Nome da Tarefa*</mat-label>
@@ -81,7 +81,7 @@
                         <mat-form-field class="mat-form mt-3" appearance="outline" >
                             <input id="addCard" matInput formControlName="nome" placeholder="Digite o nome do card">
                             <mat-icon id="addCardButton" matSuffix class="cursor" (click)="addCard()">add_circle_outline</mat-icon>
-                            <mat-error *ngIf="formCard.get('nome').hasError('required')">
+                            <mat-error id="addCardError" *ngIf="formCard.get('nome').hasError('required')">
                                 Obrigatório
                             </mat-error>
                             <mat-label>Nome do Card*</mat-label>
