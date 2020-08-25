@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/animate.css/animate.min.css';
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    background: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+/*---------------------------------------
+    Typorgraphy              
+-----------------------------------------*/
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 600;
+}
+  
+h3,h5 {
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 40px;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+h3 {
+    line-height: 36px;
+}
+
+h5 {
+    letter-spacing: 1px;
+    padding-top: 10px;
+}
+
+p {
+    color: #707070;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+a {
+    text-decoration: none !important;
+    outline: none;
+    color: white;
+}
+
+/*--------------------------------------------------------------
+    Sections Header
+--------------------------------------------------------------*/
+
+.section-header {
+    margin-bottom: 60px;
+    margin-top: 20px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section-header::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #3f51b5;
+    bottom: 0;
+    left: calc(50% - 25px);
+}
+
+.section-header h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #9195a2;
+}
+
+.section-with-bg {
+    background-color: #f6f7fd;
+}
+
+
+/*--------------------------------------------------------------
+    Material Styles
+--------------------------------------------------------------*/
+.mat-form{
+    width: 100%;
+    font-size: 15px;
+}
+
+.mat-paginator{
+    background-color: #f8f9fa;
+}
+
+/*--------------------------------------------------------------
+    Backgound Styles
+--------------------------------------------------------------*/
+
+.bg-home{
+    height: 100%;
+    background: url("./assets/img/bg-home.svg") bottom no-repeat;
+    background-size: contain;
+}

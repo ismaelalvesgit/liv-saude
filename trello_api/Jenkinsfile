@@ -1,0 +1,68 @@
+pipeline {
+
+    agent any
+
+    environment {
+        SNYK_TOKEN = credentials('snyk-token')
+    }
+    
+    stages {
+        
+        stage('Cloning Git') {
+            steps {
+                git branch: 'master',
+                    credentialsId: 'd1dff7cf-e8ec-4a5b-895d-fc3467eb34de',
+                    url: 'https://gitlab.com/url.com'
+                sh "ls -lat"
+                sh 'snyk auth ${SNYK_TOKEN}'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm i'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test'
+                snykSecurity snykInstallation: 'snyk', snykTokenId:'snyk_integration'
+            }
+        }
+
+        stage('Deploy Docker') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'docker login --username $USERNAME --password $PASSWORD'
+                }
+                sh 'chmod +x ./deploy-docker.sh  && ./deploy-docker.sh'
+            }
+        }
+        
+        stage('Deploy Server') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'sshpass', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                     sh "sshpass -p $PASSWORD ssh -A -o StrictHostKeyChecking=no -T $USERNAME@ipdoservidor 'tarefa a ser executada'"
+                }
+            }
+        }
+        
+    }
+
+    post {
+        
+        always {
+            step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage/cobertura-coverage.xml'])
+        }
+        
+        failure {
+            updateGitlabCommitStatus name: 'build', state: 'failed'
+        }
+        
+        success {
+            updateGitlabCommitStatus name: 'build', state: 'success'
+        }
+        
+    }
+}

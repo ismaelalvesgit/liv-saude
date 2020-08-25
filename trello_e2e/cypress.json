@@ -1,0 +1,10 @@
+{
+    "baseUrl": "http://localhost:4200/#/",
+    "db": {
+        "user": "postgres",
+        "password": "123456",
+        "host": "127.0.0.1",
+        "port": 5432,
+        "database": "trello"
+    }
+}

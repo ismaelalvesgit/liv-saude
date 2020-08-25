@@ -1,0 +1,95 @@
+<div class="bg-home">
+    <div class="container-fluid">
+        <div class="section-header">
+			<h2>Bem-vindo</h2>
+			<p>Olá Começe a organizar suas tarefas!!!</p>
+        </div>
+        <div class="scrolling-wrapper">
+            <div *ngFor="let card of dataCards; let i = index" class="col-sm-3">
+                <mat-card class="m-1 mat-elevation-z2 card" cdkDropList (cdkDropListDropped)="drop($event, i)" *ngIf="i+1 != dataCards.length">
+                    <div class="row justify-content-between m-0" *ngIf="!card.view">
+                        <p class="lead ">{{card.nome}}</p>
+                        <div class="row">
+                            <button type="button" mat-icon-button color="warn" matTooltip="Remover Card" (click)="delCard(card)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                            <button type="button" mat-icon-button color="primary" (click)="changerEditCard(card)" matTooltip="Editar Card">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="card.view">
+                        <form [formGroup]="formCardEdit">
+                            <mat-form-field class="mat-form mt-3" appearance="outline" >
+                                <input id="formCard{{i}}" matInput formControlName="nome" placeholder="Digite o nome do card">
+                                <mat-icon id="formCardButton{{i}}" matSuffix class="cursor" (click)="editCard()">save</mat-icon>
+                                <mat-error *ngIf="formCard.get('nome').hasError('required')">
+                                    Obrigatório
+                                </mat-error>
+                                <mat-label>Nome do Card*</mat-label>
+                            </mat-form-field>
+                            <div class="row justify-content-center">
+                                <button type="button" mat-button color="primary" (click)="changerEditCard(card)" matTooltip="Cancelar Card">
+                                    <mat-icon>close</mat-icon> Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </ng-container>
+                    <mat-card *ngFor="let lista of card.listas; let l = index" class="m-1 mat-elevation-z4" cdkDrag>
+                        <div class="row justify-content-between m-0" *ngIf="!lista.view">
+                            <p class="lead ">{{lista.nome}}</p>
+                            <div class="row">
+                                <button type="button" mat-icon-button color="warn" matTooltip="Remover Lista" (click)="delLista(lista)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+                                <button type="button" mat-icon-button color="primary" (click)="changerEditLista(lista)" matTooltip="Editar Lista">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="lista.view">
+                            <form [formGroup]="formListaEdit">
+                                <mat-form-field class="mat-form mt-3" appearance="outline" >
+                                    <input id="formLista{{l}}" matInput formControlName="nome" placeholder="Digite o nome da Tarefa">
+                                    <mat-icon matSuffix class="cursor" (click)="editLista()">save</mat-icon>
+                                    <mat-error *ngIf="formListaEdit.get('nome').hasError('required')">
+                                        Obrigatório
+                                    </mat-error>
+                                    <mat-label>Nome da tarefa*</mat-label>
+                                </mat-form-field>
+                                <div class="row justify-content-center">
+                                    <button type="button" mat-button color="primary" (click)="changerEditLista(lista)" matTooltip="Cancelar Lista">
+                                        <mat-icon>close</mat-icon> Cancelar
+                                    </button>
+                                </div>
+                            </form>
+                        </ng-container>
+                    </mat-card>
+                    <form [formGroup]="formLista">
+                        <mat-form-field class="mat-form mt-3" appearance="outline">
+                            <input id="addLista{{i}}" matInput formControlName="nome" placeholder="Digite o nome da Tarefa">
+                            <mat-icon matSuffix class="cursor" (click)="addLista(card)">add_circle_outline</mat-icon>
+                            <mat-error *ngIf="formLista.get('nome').hasError('required')">
+                                Obrigatório
+                            </mat-error>
+                            <mat-label>Nome da Tarefa*</mat-label>
+                        </mat-form-field>
+                    </form>
+                </mat-card>
+                <mat-card class="m-1 mat-elevation-z2 card" *ngIf="i+1 == dataCards.length">
+                    <form [formGroup]="formCard">
+                        <mat-form-field class="mat-form mt-3" appearance="outline" >
+                            <input id="addCard" matInput formControlName="nome" placeholder="Digite o nome do card">
+                            <mat-icon id="addCardButton" matSuffix class="cursor" (click)="addCard()">add_circle_outline</mat-icon>
+                            <mat-error *ngIf="formCard.get('nome').hasError('required')">
+                                Obrigatório
+                            </mat-error>
+                            <mat-label>Nome do Card*</mat-label>
+                        </mat-form-field>
+                    </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+</div>

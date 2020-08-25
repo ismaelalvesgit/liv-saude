@@ -1,0 +1,943 @@
+[
+  {
+    "type": "delete",
+    "url": "/card/:id",
+    "title": "Deletar Card",
+    "description": "<p>Atenção no metodo de deletar so e possivel deletar Card onde não possua lista atrelado a ela.</p>",
+    "group": "Card",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da card (requirido)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 204 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "validações do Secret",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Secret não encontrado\",\n\"Secret inválido ou incorreto\"",
+          "type": "json"
+        },
+        {
+          "title": "Documento não encontrado",
+          "content": "HTTP/1.1 404 Not Found\n\"documento não encontrado\"",
+          "type": "json"
+        },
+        {
+          "title": "Verificação de atrelamento",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"nome\": \"contains\",\n    \"mensagem\": \"Possui dados atrelado\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/card.js",
+    "groupTitle": "Card",
+    "name": "DeleteCardId"
+  },
+  {
+    "type": "get",
+    "url": "/card",
+    "title": "Listage de Todos",
+    "description": "<p>Atenção e necessario passa um secret para ter acesso aos dados</p>",
+    "group": "Card",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n   \"items\": [\n     {\n       \"id\": 13,\n       \"nome\": \"Tarefa 02\",\n       \"dataRegistro\": \"2020-08-25T00:25:57.777Z\",\n       \"dataAtualizacao\": \"2020-08-25T00:25:57.777Z\",\n       \"card\": {\n         \"id\": 14,\n         \"nome\": \"Ismael Alves\",\n         \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n         \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n       }\n     },\n     {\n       \"id\": 14,\n       \"nome\": \"Tarefa 03\",\n       \"dataRegistro\": \"2020-08-25T00:53:44.008Z\",\n       \"dataAtualizacao\": \"2020-08-25T00:53:44.008Z\",\n       \"card\": {\n         \"id\": 14,\n         \"nome\": \"Ismael Alves\",\n         \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n         \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n       }\n     }\n   ]\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/card.js",
+    "groupTitle": "Card",
+    "name": "GetCard"
+  },
+  {
+    "type": "get",
+    "url": "/card/:id",
+    "title": "Get por ID",
+    "description": "<p>Atenção e necessario passa um secret para ter acesso aos dados</p>",
+    "group": "Card",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n     \"_links\": {\n       \"self\": \"/card/14\",\n       \"all\": \"/card\"\n     },\n     \"id\": 14,\n     \"nome\": \"Ismael Alves\",\n     \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n     \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/card.js",
+    "groupTitle": "Card",
+    "name": "GetCardId"
+  },
+  {
+    "type": "post",
+    "url": "/card",
+    "title": "Cadastro de Cards",
+    "group": "Card",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da card (requirido)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"nome\": \"node.js\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da card</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da card</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataRegistro",
+            "description": "<p>Data de Registro da card</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataAtualizacao",
+            "description": "<p>Data de Atualização da card</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 14,\n  \"nome\": \"node.js\",\n  \"dataRegistro\": \"2019-12-23T15:51:28.362Z\",\n  \"dataAtualizacao\": \"2019-12-23T15:51:28.362Z\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "validações do token",
+          "content": "HTTP/1.1 401 Unauthorized\n\"secret não encontrado\",\n\"secret inválido ou incorreto\"",
+          "type": "json"
+        },
+        {
+          "title": "Campos Incorretos ou inexistentes",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"nome\": \"nome\",\n    \"mensagem\": \"nome e requirido\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/card.js",
+    "groupTitle": "Card",
+    "name": "PostCard"
+  },
+  {
+    "type": "put",
+    "url": "/card/:id",
+    "title": "Atualizar Card",
+    "description": "<p>Atenção no metodo de atualização e relizado override do dado ou seja so sera alterado o que for mandado pela requisição.</p>",
+    "group": "Card",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secrect de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da card (requirido)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da card  (requirido)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"nome\": \"jest.js\",\n  \"id\": 14,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da card</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da card</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataRegistro",
+            "description": "<p>Data de Registro da card</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataAtualizacao",
+            "description": "<p>Data de Atualização da card</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 14,\n  \"nome\": \"jest.js\",\n  \"dataRegistro\": \"2019-12-23T15:51:28.362Z\",\n  \"dataAtualizacao\": \"2019-12-23T15:51:28.362Z\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "validações do token",
+          "content": "HTTP/1.1 401 Unauthorized\n\"secret não encontrado\",\n\"secret inválido ou incorreto\"",
+          "type": "json"
+        },
+        {
+          "title": "Documento não encontrado",
+          "content": "HTTP/1.1 404 Not Found\n\"documento não encontrado\"",
+          "type": "json"
+        },
+        {
+          "title": "Campos Incorretos ou inexistentes",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"nome\": \"nome\",\n    \"mensagem\": \"nome e requirido\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/card.js",
+    "groupTitle": "Card",
+    "name": "PutCardId"
+  },
+  {
+    "type": "delete",
+    "url": "/lista/:id",
+    "title": "Deletar lista",
+    "description": "<p>Atenção no metodo de deletar so e possivel deletar lista onde não possua lista atrelado a ela.</p>",
+    "group": "Lista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da lista (requirido)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 204 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "validações do Secret",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Secret não encontrado\",\n\"Secret inválido ou incorreto\"",
+          "type": "json"
+        },
+        {
+          "title": "Documento não encontrado",
+          "content": "HTTP/1.1 404 Not Found\n\"documento não encontrado\"",
+          "type": "json"
+        },
+        {
+          "title": "Verificação de atrelamento",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"nome\": \"contains\",\n    \"mensagem\": \"Possui dados atrelado\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/listagem.js",
+    "groupTitle": "Lista",
+    "name": "DeleteListaId"
+  },
+  {
+    "type": "get",
+    "url": "/lista",
+    "title": "Listage de Todos",
+    "description": "<p>Atenção e necessario passa um secret para ter acesso aos dados</p>",
+    "group": "Lista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n     \"_links\": {\n       \"self\": \"/lista\"\n     },\n     \"items\": [\n       {\n         \"_links\": {\n           \"self\": \"/lista/13\",\n           \"all\": \"/lista\"\n         },\n         \"id\": 13,\n         \"nome\": \"Tarefa 02\",\n         \"dataRegistro\": \"2020-08-25T00:25:57.777Z\",\n         \"dataAtualizacao\": \"2020-08-25T00:25:57.777Z\",\n         \"card\": {\n           \"id\": 14,\n           \"nome\": \"Ismael Alves\",\n           \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n           \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n         }\n       },\n       {\n         \"_links\": {\n           \"self\": \"/lista/16\",\n           \"all\": \"/lista\"\n         },\n         \"id\": 16,\n         \"nome\": \"Tarefa Card 03\",\n         \"dataRegistro\": \"2020-08-25T00:54:15.822Z\",\n         \"dataAtualizacao\": \"2020-08-25T00:54:15.822Z\",\n         \"card\": {\n           \"id\": 15,\n           \"nome\": \"Raquel Barra\",\n           \"dataRegistro\": \"2020-08-24T23:12:24.827Z\",\n           \"dataAtualizacao\": \"2020-08-25T00:54:36.646Z\"\n         }\n       }\n     ]\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/listagem.js",
+    "groupTitle": "Lista",
+    "name": "GetLista"
+  },
+  {
+    "type": "get",
+    "url": "/lista/:id",
+    "title": "Get por ID",
+    "description": "<p>Atenção e necessario passa um secret para ter acesso aos dados</p>",
+    "group": "Lista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da lista (requirido)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n     \"_links\": {\n       \"self\": \"/lista/14\",\n       \"all\": \"/lista\"\n     },\n     \"id\": 14,\n     \"nome\": \"Ismael Alves\",\n     \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n     \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/listagem.js",
+    "groupTitle": "Lista",
+    "name": "GetListaId"
+  },
+  {
+    "type": "get",
+    "url": "/lista/:id/card",
+    "title": "Listage por card",
+    "description": "<p>Atenção e necessario passa um secret para ter acesso aos dados</p>",
+    "group": "Lista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID do Card (requirido)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n     \"items\": [\n       {\n         \"id\": 13,\n         \"nome\": \"Tarefa 02\",\n         \"dataRegistro\": \"2020-08-25T00:25:57.777Z\",\n         \"dataAtualizacao\": \"2020-08-25T00:25:57.777Z\",\n         \"card\": {\n           \"id\": 14,\n           \"nome\": \"Ismael Alves\",\n           \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n           \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n         }\n       },\n       {\n         \"id\": 14,\n         \"nome\": \"Tarefa 03\",\n         \"dataRegistro\": \"2020-08-25T00:53:44.008Z\",\n         \"dataAtualizacao\": \"2020-08-25T00:53:44.008Z\",\n         \"card\": {\n           \"id\": 14,\n           \"nome\": \"Ismael Alves\",\n           \"dataRegistro\": \"2020-08-24T22:56:48.435Z\",\n           \"dataAtualizacao\": \"2020-08-25T00:19:37.230Z\"\n         }\n       }\n     ]\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/listagem.js",
+    "groupTitle": "Lista",
+    "name": "GetListaIdCard"
+  },
+  {
+    "type": "post",
+    "url": "/lista",
+    "title": "Cadastro de listas",
+    "group": "Lista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secret de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da lista (requirido)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"nome\": \"node.js\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da lista</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da lista</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataRegistro",
+            "description": "<p>Data de Registro da lista</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataAtualizacao",
+            "description": "<p>Data de Atualização da lista</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 14,\n  \"nome\": \"node.js\",\n  \"dataRegistro\": \"2019-12-23T15:51:28.362Z\",\n  \"dataAtualizacao\": \"2019-12-23T15:51:28.362Z\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "validações do token",
+          "content": "HTTP/1.1 401 Unauthorized\n\"secret não encontrado\",\n\"secret inválido ou incorreto\"",
+          "type": "json"
+        },
+        {
+          "title": "Campos Incorretos ou inexistentes",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"nome\": \"nome\",\n    \"mensagem\": \"nome e requirido\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/listagem.js",
+    "groupTitle": "Lista",
+    "name": "PostLista"
+  },
+  {
+    "type": "put",
+    "url": "/lista/:id",
+    "title": "Atualizar lista",
+    "description": "<p>Atenção no metodo de atualização e relizado override do dado ou seja so sera alterado o que for mandado pela requisição.</p>",
+    "group": "Lista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Secrect de autorização do usuário autenticado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}\n{\"Authorization\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da lista (requirido)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da lista  (requirido)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n  \"nome\": \"jest.js\",\n  \"id\": 14,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID da lista</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "nome",
+            "description": "<p>Nome da lista</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataRegistro",
+            "description": "<p>Data de Registro da lista</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "dataAtualizacao",
+            "description": "<p>Data de Atualização da lista</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 14,\n  \"nome\": \"jest.js\",\n  \"dataRegistro\": \"2019-12-23T15:51:28.362Z\",\n  \"dataAtualizacao\": \"2019-12-23T15:51:28.362Z\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "validações do token",
+          "content": "HTTP/1.1 401 Unauthorized\n\"secret não encontrado\",\n\"secret inválido ou incorreto\"",
+          "type": "json"
+        },
+        {
+          "title": "Documento não encontrado",
+          "content": "HTTP/1.1 404 Not Found\n\"documento não encontrado\"",
+          "type": "json"
+        },
+        {
+          "title": "Campos Incorretos ou inexistentes",
+          "content": "HTTP/1.1 400 Bad Request\n{\n    \"nome\": \"nome\",\n    \"mensagem\": \"nome e requirido\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/listagem.js",
+    "groupTitle": "Lista",
+    "name": "PutListaId"
+  },
+  {
+    "type": "get",
+    "url": "/system/healthcheck",
+    "title": "Analise da saúde da API",
+    "group": "System",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>O Content-Type informa ao cliente qual é o tipo de conteúdo retornado</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"Content-Type\": \"application/json\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n       process: 5440,\n       uptime: 705.64,\n       speed: {\n           download: 73.492,\n           upload: 40.84,\n           originalDownload: 8093822,\n           originalUpload: 4481974\n       },\n       client: {\n           ip: \"45.181.93.64\",\n           lat: -3.7196,\n           lon: -38.5257,\n           isp: \"Unknown\",\n           isprating: 3.7,\n           rating: 0,\n           ispdlavg: 0,\n           ispulavg: 0,\n           country: \"BR\"\n       }\n   }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Erro",
+          "content": "HTTP/1.1 503 Service Unavailable\n\"pilha de possiveis problemas\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "doc/system.js",
+    "groupTitle": "System",
+    "name": "GetSystemHealthcheck"
+  }
+]

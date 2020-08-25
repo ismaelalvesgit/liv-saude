@@ -1,0 +1,56 @@
+version: '3'
+
+services: 
+  frontend:
+      build: ./trello_web
+      container_name: frontend
+      # volumes:
+      #   - /etc/localtime:/etc/localtime:ro # usar somente em SO linux
+      #   - /etc/timezone:/etc/timezone:ro  # usar somente em SO linux
+      restart: always
+      ports:
+        - 80:80
+  backend:
+    build: ./trello_api
+    container_name: backend
+    restart: always
+    environment: 
+      DB_HOST: postgres
+    # volumes: 
+    #   - /etc/localtime:/etc/localtime:ro # usar somente em SO linux
+    #   - /etc/timezone:/etc/timezone:ro # usar somente em SO linux
+    ports: 
+      - 3000:3000
+    links:
+      - postgres
+    depends_on: 
+      - 'postgres'
+  postgres:
+    image: postgres:9.6
+    restart: always
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+    ports: 
+      - 5432:5432
+    volumes: 
+      - postgresdata:/var/lib/postgresql/data/
+  # pgadmin4:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   container_name: pgadmin4
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
+  #     PGADMIN_DEFAULT_PASSWORD: "123456"
+  #   volumes:
+  #     - ./backup:/var/lib/pgadmin/storage/admin_gmail.com
+  #   ports:
+  #     - "8081:80"
+  #   depends_on:
+  #     - postgres
+networks:
+  default:
+
+volumes: 
+  postgresdata:
+  
