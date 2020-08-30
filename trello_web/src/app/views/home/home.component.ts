@@ -53,6 +53,15 @@ export class HomeComponent implements OnInit {
       this.dataCards.push(new Card())
       this.spinner.hide();
     }, (e: any) => {
+      this.dataCards = []
+      this.dataCards.push(new Card())
+      if(e.status == 500){
+        Swal.fire(
+          'Error',
+          'Ops! Aperece que não obtivemos a conexão com o servidor contate o suporte !!!',
+          'error'
+        )
+      }
       this.spinner.hide();
     })
   }
